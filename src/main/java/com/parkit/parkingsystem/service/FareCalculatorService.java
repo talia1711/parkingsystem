@@ -2,11 +2,8 @@ package com.parkit.parkingsystem.service;
 
 import com.parkit.parkingsystem.constants.Fare;
 import com.parkit.parkingsystem.model.Ticket;
-import static java.time.temporal.ChronoUnit.*;
 
 import java.text.DecimalFormat;
-import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 public class FareCalculatorService {
 
