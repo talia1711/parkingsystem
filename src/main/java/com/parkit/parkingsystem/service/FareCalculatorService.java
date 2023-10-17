@@ -35,7 +35,7 @@ public class FareCalculatorService {
         return getTwoPoints(durationHours);
     }
 
-    public void calculateFare(Ticket ticket){
+    public void calculateFare(Ticket ticket, Boolean isRecurringVehicle){
         if( (ticket.getOutTime() == null) || (ticket.getOutTime().before(ticket.getInTime())) ){
             throw new IllegalArgumentException("Out time provided is incorrect:"+ticket.getOutTime().toString());
         }
@@ -48,15 +48,18 @@ public class FareCalculatorService {
             System.out.println("free of charge " );
             duration = 0;
         }
-        
+    
+        if(isRecurringVehicle){
+            System.out.println("Welcome back, u got 5% dicount " + isRecurringVehicle);
+        }
 
         switch (ticket.getParkingSpot().getParkingType()){
             case CAR: {
-                ticket.setPrice(duration * Fare.CAR_RATE_PER_HOUR);
+                ticket.setPrice(getTwoPoints(isRecurringVehicle? duration * Fare.CAR_RATE_PER_HOUR*.95 : duration * Fare.CAR_RATE_PER_HOUR));
                 break;
             }
             case BIKE: {
-                ticket.setPrice(duration * Fare.BIKE_RATE_PER_HOUR);
+                ticket.setPrice(getTwoPoints(isRecurringVehicle? duration * Fare.BIKE_RATE_PER_HOUR*.95 : duration * Fare.BIKE_RATE_PER_HOUR));
                 break;
             }
             default: throw new IllegalArgumentException("Unkown Parking Type");
