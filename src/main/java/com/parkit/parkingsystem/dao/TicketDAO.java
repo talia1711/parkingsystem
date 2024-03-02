@@ -71,7 +71,7 @@ public class TicketDAO {
 
       public Boolean isRecurringVehicle(String vehicleRegNumber) {
         Connection con = null;
-        Ticket ticket = null; 
+        Ticket ticket = null;
         Boolean isRecurringUser = false;
         try {
             con = dataBaseConfig.getConnection();
@@ -81,7 +81,6 @@ public class TicketDAO {
             ResultSet rs = ps.executeQuery();
            
             if(rs.next()){
-
                 System.out.println("number of reg # : " + rs.getInt(1));
                 System.out.println("number of reg true or false# : " + (Boolean)(rs.getInt(1) > 1));
                 isRecurringUser =  rs.getInt(1) > 1;
