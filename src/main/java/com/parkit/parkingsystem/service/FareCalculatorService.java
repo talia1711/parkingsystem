@@ -40,8 +40,6 @@ public class FareCalculatorService {
     
         double duration = getDuration(ticket);
 
-        System.out.println("duration " + duration + "   " + ticket.getId());
-
         if(duration <= 0.5){
             System.out.println("free of charge " );
             duration = 0;
