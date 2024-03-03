@@ -14,12 +14,10 @@ public class FareCalculatorService {
     }
 
     private Double getDuration(Ticket ticket){
-        double inDays = ticket.getInTime().getDay();
-        double outDays = ticket.getOutTime().getDay();
+        double inDays = ticket.getInTime().getDate();
+        double outDays = ticket.getOutTime().getDate();
 
         double durationHours = (outDays - inDays)*24;
-        System.out.println("durationDays " + (outDays - inDays));
-
 
         double inHours = ticket.getInTime().getHours();
         double outHours = ticket.getOutTime().getHours();
