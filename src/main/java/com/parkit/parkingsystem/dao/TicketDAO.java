@@ -69,6 +69,32 @@ public class TicketDAO {
         }
     }
 
+      public Boolean isRecurringVehicle(String vehicleRegNumber) {
+        Connection con = null;
+        Ticket ticket = null;
+        Boolean isRecurringUser = false;
+        try {
+            con = dataBaseConfig.getConnection();
+            PreparedStatement ps = con.prepareStatement(DBConstants.COUNT_TICKET);
+            //ID, PARKING_NUMBER, VEHICLE_REG_NUMBER, PRICE, IN_TIME, OUT_TIME)
+            ps.setString(1, vehicleRegNumber);
+            ResultSet rs = ps.executeQuery();
+           
+            if(rs.next()){
+                System.out.println("number of reg # : " + rs.getInt(1));
+                System.out.println("number of reg true or false# : " + (Boolean)(rs.getInt(1) > 1));
+                isRecurringUser =  rs.getInt(1) > 1;
+            }
+            dataBaseConfig.closeResultSet(rs);
+            dataBaseConfig.closePreparedStatement(ps);
+        }catch (Exception ex){
+            logger.error("Error fetching next available slot",ex);
+        }finally {
+            dataBaseConfig.closeConnection(con);
+            return isRecurringUser;
+        }
+    }
+
     public boolean updateTicket(Ticket ticket) {
         Connection con = null;
         try {
